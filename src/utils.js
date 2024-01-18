@@ -3,8 +3,6 @@ import Cookies from 'js-cookie'
 import numeral from "numeral";
 import { isEmail } from "validator";
 
-import NoImage from "./images/no_image.jpeg";
-
 const COOKIE_TYPE = {
   IS_LOGGED_IN: 'IS_LOGGED_IN',
 };
@@ -31,7 +29,7 @@ export const setupLocalCurrency = () => {
   numeral.locale("id");
 }
 
-export const createFileUrlPreview = img => (!img ? NoImage : `/image-web-service/uploads/${img}`);
+export const createFileUrlPreview = img => (!img ? '/images/no_image.jpeg' : `/image-web-service/uploads/${img}`);
 
 export const checkIsLoggedIn = () => Cookies.get(COOKIE_TYPE.IS_LOGGED_IN);
 
