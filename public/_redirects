@@ -1,0 +1,4 @@
+/api-region/* http://191.101.2.237:5001/api/:splat 200
+/image-web-service/* http://191.101.2.237:6600/:splat 200
+/api/* http://191.101.2.237:3300/api/:splat 200
+/* /index.html 200
