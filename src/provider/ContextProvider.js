@@ -9,7 +9,11 @@ const AppContext = ({ children }) => {
 
     const handleShowDemoOnlyNotification = () => { toastifyRef.current.notifyError("Fitur ini tidak tersedia dalam versi demo"); }
 
-    const contextValue = { ...reducedContext, toastify: toastifyRef.current, onShowDemoOnlyNotification: handleShowDemoOnlyNotification };
+    const contextValue = {
+        ...reducedContext,
+        toastify: toastifyRef.current,
+        onShowDemoOnlyNotification: handleShowDemoOnlyNotification
+    };
 
     return (
         <GlobalContext.Provider value={contextValue}>

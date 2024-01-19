@@ -8,7 +8,7 @@ import StyledButton from '../../components/StyledButton';
 import OrderSuccessInfo from './OrderSuccessInfo';
 import CheckoutLoader from './CheckoutLoader';
 
-export default () => {
+const Checkout = () => {
     const orderSuccessInfo = useRef(null);
     const checkoutLoader = useRef(null);
 
@@ -25,7 +25,7 @@ export default () => {
         <div>
             <div className="py-2 border border-x-0 border-t-0 border-b-slate-200 mb-10">
                 <MiddleWrapper>
-                    <a href="/"><img style={{ height: '50px' }} src={Logo} /></a>
+                    <a href="/"><img style={{ height: '50px' }} alt="logo" src={Logo} /></a>
                 </MiddleWrapper>
             </div>
             <MiddleWrapper>
@@ -53,3 +53,5 @@ export default () => {
         </div>
     );
 }
+
+export default Checkout;

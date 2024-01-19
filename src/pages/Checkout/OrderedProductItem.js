@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import LazyImage from "../../components/LazyImage";
 import { styled } from "../../stitches.config";
 import { createFileUrlPreview, currency } from "../../utils";
@@ -11,9 +12,9 @@ const Wrapper = styled('div', {
     }
 });
 
-export default ({ data }) => {
+const OrderedProductItem = ({ data, css }) => {
     return (
-        <Wrapper className="text-sm">
+        <Wrapper className="text-sm" css={css}>
             <div style={{ flex: '2 1 0%', alignItems: 'center', gap: 12 }} className="flex flex-row">
                 <div className="flex-1">
                     <LazyImage
@@ -34,3 +35,13 @@ export default ({ data }) => {
         </Wrapper>
     );
 }
+
+OrderedProductItem.propTypes = {
+    css: PropTypes.shape({})
+};
+
+OrderedProductItem.defaultProps = {
+    css: {},
+};
+
+export default OrderedProductItem;

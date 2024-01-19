@@ -37,7 +37,7 @@ const ItemWrapper = styled('div', {
     },
 });
 
-export default () => {
+const PaymentMethods = () => {
     const [currentPaymentMethod, setCurrentPaymentMethod] = useState('1');
 
     return (
@@ -68,3 +68,5 @@ export default () => {
         </div>
     )
 }
+
+export default PaymentMethods;

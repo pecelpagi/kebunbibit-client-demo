@@ -3,7 +3,7 @@ import GlobalContext from "../../provider/GlobalContext";
 import { currency } from "../../utils";
 import OrderedProductItem from "./OrderedProductItem";
 
-export default () => {
+const OrderedProducts = () => {
     const { cartData } = useContext(GlobalContext);
     const totalResult = cartData.reduce((total, data) => (total + (data.price * data.qty)), 0);
 
@@ -28,3 +28,5 @@ export default () => {
         </div>
     );
 }
+
+export default OrderedProducts;

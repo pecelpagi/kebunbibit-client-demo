@@ -2,7 +2,7 @@ import { useContext } from "react";
 import StyledButton from "../../components/StyledButton";
 import GlobalContext from "../../provider/GlobalContext";
 
-export default () => {
+const ShippingAddress = () => {
     const { shippingAddressData } = useContext(GlobalContext);
 
     const data = shippingAddressData.find(x => !!x.is_default);
@@ -25,3 +25,5 @@ export default () => {
         </div>
     );
 }
+
+export default ShippingAddress;

@@ -7,6 +7,9 @@ import {
 } from '../../components/StyledDialog';
 import { styled } from '../../stitches.config';
 import { createSizeProps } from '../LayoutAccount/utils';
+import Box from '../../components/Box';
+import OrderedProductItem from './OrderedProductItem';
+import GlobalContext from '../../provider/GlobalContext';
 
 const iconSize = createSizeProps(32);
 
@@ -18,6 +21,8 @@ const InfoWrapper = styled('div', {
 })
 
 class FormDialog extends React.Component {
+    static contextType = GlobalContext;
+
     state = {
         isOpening: false,
     }
@@ -28,6 +33,9 @@ class FormDialog extends React.Component {
 
     render() {
         const { isOpening } = this.state;
+        const { cartData, shippingAddressData } = this.context;
+
+        const address = shippingAddressData.find(x => !!x.is_default);
 
         return (
             <Dialog open={isOpening}>
@@ -37,7 +45,7 @@ class FormDialog extends React.Component {
                     }
                 }}>
                     <div style={{ padding: '25px' }} className="flex flex-col">
-                        <InfoWrapper className="flex mb-8 gap-3 rounded-md">
+                        <InfoWrapper className="flex gap-3 mb-4 rounded-md">
                             <div className="text-lime-500">
                                 <CheckCircledIcon {...iconSize} />
                             </div>
@@ -46,6 +54,37 @@ class FormDialog extends React.Component {
                                 <div className="text-sm">Terima kasih. Pesanan Anda sudah kami terima.</div>
                             </div>
                         </InfoWrapper>
+                        <Box className='divide-y divide-dashed flex flex-col'>
+                            <Box
+                                className='mb-3'
+                                css={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr auto',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Box>
+                                    <Box className='text-sm'>Nomor Pesanan</Box>
+                                    <Box className='font-bold'>KBUBBKRMC71</Box>
+                                </Box>
+                                <Box className='text-sm'>
+                                    18 November 2022 20:48:40
+                                </Box>
+                            </Box>
+                            <Box>
+                                <OrderedProductItem data={cartData[0]} css={{ padding: '12px 0' }} />
+                            </Box>
+                            {address && (
+                                <Box className='pt-2 pb-4'>
+                                    <div className="flex flex-col gap-1 flex-1 text-sm border border-x-0 border-y-0">
+                                        <div className="font-semibold">{address.receiver_name}&nbsp;<span className="font-normal">({address.address_label})</span></div>
+                                        <div>{address.phone}</div>
+                                        <div>{`${address.address} Kel. ${address.village_name} Kec. ${address.subdistrict_name} `}</div>
+                                        <div>{`${address.city_name}, ${address.province_name} ${address.postal_code ? `(${address.postal_code})` : ''}`}</div>
+                                    </div>
+                                </Box>
+                            )}
+                        </Box>
                         <div className="flex flex-col gap-3 font-semibold text-sm">
                             <StyledButton className="w-full" variant="primary" type="button" outlined>Lihat Pesanan Saya</StyledButton>
                             <StyledButton className="w-full" variant="primary" onClick={() => { window.location.href = '/' }} type="button">Kembali ke Halaman Utama</StyledButton>
