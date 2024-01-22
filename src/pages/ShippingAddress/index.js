@@ -2,25 +2,19 @@ import { useContext } from 'react';
 import GlobalContext from '../../provider/GlobalContext';
 import ShippingAddressItem from './ShippingAddressItem';
 import InputFilterKeyword from './InputFilterKeyword';
-import StyledButton from '../../components/StyledButton';
-import ContextProvider, { ShippingAddressContext } from './ShippingAddressContext';
+import PageContextProvider from './PageContextProvider';
+import AddButton from './AddButton';
+import { useRefCollections } from './utils';
+import FormDialog from './FormDialog';
 
-const AddButton = () => {
-    const { onOpenDialogToCreate } = useContext(ShippingAddressContext);
-
-    return (
-        <StyledButton className="text-sm font-semibold" type="button" variant="primary" onClick={onOpenDialogToCreate}>
-            <span className="hidden md:block">Tambah Alamat Baru</span>
-            <span className="block md:hidden">Tambah</span>
-        </StyledButton>
-    );
-}
-
-export default () => {
+const ShippingAddress = () => {
+    const refCollections = useRefCollections();
     const { shippingAddressData } = useContext(GlobalContext);
 
     return (
-        <ContextProvider>
+        <PageContextProvider
+            {...{ refCollections }}
+        >
             <div className="flex flex-col">
                 <div className="text-base font-semibold border-b p-4">
                     <div>Alamat Pengiriman</div>
@@ -39,6 +33,11 @@ export default () => {
                     </div>
                 </div>
             </div>
-        </ContextProvider>
+            <FormDialog
+                ref={refCollections.formDialog}
+            />
+        </PageContextProvider>
     );
 }
+
+export default ShippingAddress;

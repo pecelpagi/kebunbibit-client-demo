@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
-export default () => {
+const InputFilterKeyword = () => {
     const [filterKeyword, setFilterKeyword] = useState('');
     
     return (
@@ -16,3 +16,5 @@ export default () => {
         </div>
     )
 }
+
+export default InputFilterKeyword;

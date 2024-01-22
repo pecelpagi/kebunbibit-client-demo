@@ -1,4 +1,4 @@
-export default (props) => {
+const Label = (props) => {
     const { label, required } = props;
 
     if (!label) return null;
@@ -11,3 +11,5 @@ export default (props) => {
         </label>
     );
 }
+
+export default Label;

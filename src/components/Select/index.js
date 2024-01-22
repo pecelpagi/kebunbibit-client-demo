@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Controller } from "react-hook-form";
 import { COLOR_DATA } from '../../stitches.config';
-import Label from "../InputText/Label";
+import Label from "../Label";
 import AsyncSelect from "./AsyncSelect";
 import DefaultSelect from "./DefaultSelect";
 
@@ -33,8 +32,7 @@ const customStyles = (isInvalid) => ({
 
 const SelectComponent = React.forwardRef((props, ref) => {
     const {
-        options, label, required, value, onChange, selectType, onFetch, changeEvent, fullWidth,
-        menuPlacement, isInvalid, placeholder
+        options, label, required, value, onChange, selectType, onFetch, isInvalid
     } = props;
 
     const selectStyles = {
@@ -51,7 +49,6 @@ const SelectComponent = React.forwardRef((props, ref) => {
 
     const handleChangeValue = (e) => {
         onChange(e.value);
-        changeEvent(e.value);
     }
 
     return (
@@ -61,14 +58,14 @@ const SelectComponent = React.forwardRef((props, ref) => {
                 {selectType === SELECT_TYPE.DEFAULT && (
                     <DefaultSelect
                         {...selectStyles}
-                        {...{ options, value, fullWidth, menuPlacement, placeholder }}
+                        {...{ options, value }}
                         onChange={handleChangeValue}
                     />
                 )}
                 {selectType === SELECT_TYPE.ASYNC && (
                     <AsyncSelect
                         {...selectStyles}
-                        {...{ onFetch, value, menuPlacement }}
+                        {...{ onFetch, value }}
                         onChange={handleChangeValue}
                     />
                 )}
@@ -81,35 +78,15 @@ SelectComponent.propTypes = {
     selectType: PropTypes.string,
     onFetch: PropTypes.func,
     options: PropTypes.arrayOf(PropTypes.shape({})),
-    changeEvent: PropTypes.func,
-    fullWidth: PropTypes.bool,
-    menuPlacement: PropTypes.string,
     isInvalid: PropTypes.bool,
-    placeholder: PropTypes.string,
+
 };
 
 SelectComponent.defaultProps = {
     onFetch: () => { },
     selectType: SELECT_TYPE.DEFAULT,
     options: [],
-    changeEvent: () => { },
-    fullWidth: false,
-    menuPlacement: 'auto',
     isInvalid: false,
-    placeholder: undefined,
 };
 
-export default (props) => {
-    const { name, control, value, required } = props;
-
-    if (!control) return (<SelectComponent {...props} />);
-
-    return (
-        <Controller
-            {...{ name, control }}
-            {...value ? { value } : { defaultValue: value }}
-            rules={{ required }}
-            render={({ field }) => <SelectComponent {...props} {...field} />}
-        />
-    )
-};
+export default SelectComponent;

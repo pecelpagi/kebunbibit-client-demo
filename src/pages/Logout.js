@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import Spinner from "../components/Spinner";
 import * as apiService from '../data';
-import { checkIsLoggedIn } from "../utils";
+import { catchError, checkIsLoggedIn } from "../utils";
+import GlobalContext from "../provider/GlobalContext";
 
 const Logout = () => {
-    const handleLogout = async () => {
+    const { toastify } = useContext(GlobalContext);
+
+    const handleLogout = useCallback(async () => {
         try {
             await apiService.logout();
 
@@ -12,13 +15,13 @@ const Logout = () => {
                 window.location.href = '/';
             }, 1000);
         } catch (err) {
-            console.error(err);
+            toastify.notifyError(catchError(err));
         }
-    }
+    }, [toastify]);
 
     useEffect(() => {
         if (checkIsLoggedIn()) handleLogout();
-    }, []);
+    }, [handleLogout]);
 
     return (<Spinner />);
 }

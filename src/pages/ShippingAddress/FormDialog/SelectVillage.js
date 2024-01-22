@@ -1,33 +1,27 @@
-import { useEffect, useState } from 'react';
-import * as apiService from '../../../data';
+import { useContext } from 'react';
 import Select from '../../../components/Select';
+import PageContext from '../PageContext';
 
-const handleFetchVillages = async (subDistrictId, onSuccessfully) => {
-    try {
-        const res = await apiService.getVillages(subDistrictId);
-        const formattedData = res.data.map(x => ({ ...x, value: x.id, label: x.name }));
 
-        onSuccessfully(formattedData)
-    } catch (e) {
-        console.error(e);
+const SelectVillage = ({ isInvalid, onChange }) => {
+    const { villages, selectedRegionId, onChangeSelectedRegionId } = useContext(PageContext);
+
+    const handleChangeValue = (val) => {
+        onChangeSelectedRegionId('village', val);
+        onChange(val);
     }
-}
-
-export default ({ control, subDistrictId, value, isInvalid }) => {
-    const [options, setOptions] = useState([]);
-
-    useEffect(() => {
-        if (subDistrictId) handleFetchVillages(subDistrictId, setOptions);
-    }, [subDistrictId]);
 
     return (
         <Select
-            {...{ control, options, value, isInvalid }}
+            {...{ isInvalid }}
+            onChange={handleChangeValue}
+            options={villages}
             label="Kelurahan"
-            name="village_id"
             placeholder="Pilih Kelurahan"
             required
-            fullWidth
+            value={selectedRegionId.village}
         />
     );
 }
+
+export default SelectVillage;

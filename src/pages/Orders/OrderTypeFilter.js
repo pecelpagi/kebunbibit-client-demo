@@ -23,7 +23,7 @@ const options = [
     },
 ]
 
-export default () => {
+const OrderTypeFilter = () => {
     const [selectedValue, setSelectedValue] = useState('ALL');
 
     const handleChangeValue = (val) => {
@@ -38,8 +38,9 @@ export default () => {
                 menuPosition="fixed"
                 value={selectedValue}
                 onChange={handleChangeValue}
-                fullWidth
             />
         </div>
     );
 }
+
+export default OrderTypeFilter;

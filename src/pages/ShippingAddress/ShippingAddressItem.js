@@ -1,26 +1,11 @@
 import { CheckIcon } from "@radix-ui/react-icons";
 import { useContext } from "react";
 import StyledButton from "../../components/StyledButton"
-import { styled } from "../../stitches.config"
-import { ShippingAddressContext } from "./ShippingAddressContext";
-
-const Wrapper = styled('div', {
-    boxShadow: '#31353b1f 0px 1px 6px 0px',
-    borderRadius: '8px',
-    border: '1px solid transparent',
-    padding: '16px 24px',
-    variants: {
-        isDefault: {
-            true: {
-                background: '#ebffef',
-                border: '1px solid $backgroundPrimary'
-            },
-        },
-    },
-});
+import PageContext from "./PageContext";
+import { Wrapper } from "./shipping-address-item.styled-components";
 
 const ShippingAddressItem = ({ data }) => {
-    const { onOpenDialogToEdit } = useContext(ShippingAddressContext);
+    const { onOpenDialog } = useContext(PageContext);
 
     return (
         <Wrapper className="flex flex-row gap-3 text-sm items-center" isDefault={!!data.is_default}>
@@ -31,7 +16,7 @@ const ShippingAddressItem = ({ data }) => {
                 <div>{`${data.address} Kel. ${data.village_name} Kec. ${data.subdistrict_name} `}</div>
                 <div>{`${data.city_name}, ${data.province_name} ${data.postal_code ? `(${data.postal_code})` : ''}`}</div>
                 <div className="flex flex-row gap-3 items-center text-xs font-semibold mt-2">
-                    <StyledButton onClick={() => { onOpenDialogToEdit(data) }} type="button" variant="primary" outlined>Ubah Alamat</StyledButton>
+                    <StyledButton onClick={() => { onOpenDialog(data) }} type="button" variant="primary" outlined>Ubah Alamat</StyledButton>
                     <div style={{ width: '2px', height: '18px', background: '#e5e7e9' }} />
                     <button className="text-red-500" type="button">Hapus</button>
                 </div>

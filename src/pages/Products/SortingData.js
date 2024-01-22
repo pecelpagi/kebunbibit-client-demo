@@ -38,7 +38,6 @@ const SortingData = () => {
                 menuPosition="fixed"
                 value={selectedValue}
                 onChange={handleChangeValue}
-                fullWidth
             />
         </div>
     );

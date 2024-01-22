@@ -1,84 +1,51 @@
-import { useContext } from "react";
-import { useForm } from "react-hook-form";
+import { Controller } from "react-hook-form"
 import { ReactComponent as GoogleLogo } from "./icon-google.svg";
 import InputText from '../../../components/InputText';
 import InputPassword from '../../../components/InputPassword';
 import StyledButton from '../../../components/StyledButton';
-import { isHasProperty } from "../../../utils";
-import { styled } from "../../../stitches.config";
-import GlobalContext from "../../../provider/GlobalContext";
+import { useBusinessLogic } from "./form.hooks";
+import { Separator } from "./form.components";
+import { StyledForm } from "./form.styled-components";
 
-const createErrorMessage = (data, errorFromAPI = '') => {
-    const errors = Object.keys(data);
-
-    if (errorFromAPI) return errorFromAPI;
-
-    if (errors.length === 0) return '';
-
-    if (isHasProperty(data, 'email')) return 'Username masih kosong';
-    if (isHasProperty(data, 'passwd')) return 'Password masih kosong';
-
-    return '';
-}
-
-const Separator = () => (
-    <div className="text-sm">
-        <hr style={{
-            position: 'relative',
-            top: '11px',
-        }} />
-        <span style={{
-            background: '#FFF',
-            position: 'relative',
-            width: '40px',
-            display: 'inline-block',
-        }}>atau</span>
-    </div>
-);
-
-const StyledForm = styled('form', {
-    'a': {
-        color: '#F04630 !important',
-        '&:hover': {
-            textDecoration: 'underline',
-        }
-    }
-})
-
-export default ({ onSubmit, errorFromAPI }) => {
-    const { onShowDemoOnlyNotification } = useContext(GlobalContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const errMessage = createErrorMessage(errors, errorFromAPI);
-    const disabled = !errorFromAPI && String(errMessage).length > 0;
-    
-    const handleShowDemoOnlyNotification = (e) => {
-        if (e) e.preventDefault();
-
-        onShowDemoOnlyNotification();
-    }
+const Form = ({ onSubmit: onSubmitProp, errorFromAPI }) => {
+    const {
+        disabled, errorMessage, control,
+        onSubmit, onShowDemoOnlyNotification
+    } = useBusinessLogic({ onSubmitProp, errorFromAPI });
 
     return (
-        <StyledForm className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit(onSubmit)}>
+        <StyledForm className="flex flex-col gap-4 mt-4" {...{ onSubmit }}>
             <div>
-                <InputText
-                    label="Email atau Nomor HP"
+                <Controller
+                    control={control}
                     name="email"
-                    required
-                    defaultValue="hbolot@getnada.com"
-                    {...{ register }}
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputText
+                            label="Email atau Nomor HP"
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
             </div>
             <div>
-                <InputPassword
-                    label="Password"
+                <Controller
+                    control={control}
                     name="passwd"
-                    required
-                    defaultValue="123456"
-                    {...{ register }}
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputPassword
+                            label="Password"
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
             </div>
-            {errMessage ? <span className="text-red-600 text-sm block">{errMessage}</span> : null}
+            {errorMessage ? <span className="text-red-600 text-sm block">{errorMessage}</span> : null}
             <StyledButton
                 className="w-full text-sm disabled:opacity-75 p-0"
                 variant="primary"
@@ -94,19 +61,27 @@ export default ({ onSubmit, errorFromAPI }) => {
                 </span>
             </StyledButton>
             <div className="text-center">
-                <a onClick={handleShowDemoOnlyNotification} href="#" className="text-sm" style={{ marginBottom: '20px' }}>Lupa Password ?</a>
+                <button
+                    type="button"
+                    onClick={onShowDemoOnlyNotification}
+                    className="text-sm"
+                    style={{ marginBottom: '20px' }}
+                >Lupa Password ?</button>
             </div>
             <div className="text-center flex flex-col gap-4">
                 <Separator />
                 <StyledButton
-                    onClick={handleShowDemoOnlyNotification}
+                    onClick={onShowDemoOnlyNotification}
                     type="button"
                     css={{ background: '#ea4335', color: '#ffffff' }}
-                    className="w-full text-sm disabled:opacity-75 p-0 flex items-center justify-center gap-1">
+                    className="w-full text-sm disabled:opacity-75 p-0 flex items-center justify-center gap-1"
+                >
                     <GoogleLogo width={17} height={17} />Masuk dengan Google
                 </StyledButton>
-                <span className="text-sm">Belum punya akun ? <a href="#" onClick={handleShowDemoOnlyNotification}>Buat Akun Sekarang</a></span>
+                <span className="text-sm">Belum punya akun ? <button type="button" onClick={onShowDemoOnlyNotification}>Buat Akun Sekarang</button></span>
             </div>
         </StyledForm>
     )
 }
+
+export default Form;

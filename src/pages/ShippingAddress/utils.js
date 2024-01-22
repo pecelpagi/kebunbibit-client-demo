@@ -1,13 +1,16 @@
-import * as apiService from '../../data';
-import { catchError } from '../../utils';
+import { useRef } from 'react';
 
-export const processSavingData = async (payload, onError, onSuccessfully) => {
-    try {
-        if (!payload.id) await apiService.createShippingAddress(payload);
-        if (payload.id) await apiService.updateShippingAddress(payload);
+export const useRefCollections = () => {
+    const formDialog = useRef(null);
 
-        onSuccessfully();
-    } catch (e) {
-        onError(catchError(e));
-    }
-}
+    return {
+        formDialog,
+    };
+};
+
+export const createSelectedRegionId = (addressData = null) => ({
+    province: addressData ? addressData.province_id : '',
+    city: addressData ? addressData.city_id : '',
+    subdistrict: addressData ? addressData.subdistrict_id : '',
+    village: addressData ? addressData.village_id : '',
+})

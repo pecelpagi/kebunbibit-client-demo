@@ -7,7 +7,7 @@ const AppContext = ({ children }) => {
     const reducedContext = useContextReducer();
     const toastifyRef = useRef(null);
 
-    const handleShowDemoOnlyNotification = () => { toastifyRef.current.notifyError("Fitur ini tidak tersedia dalam versi demo"); }
+    const handleShowDemoOnlyNotification = () => { toastifyRef.current.notifyInfo("Fitur ini tidak tersedia dalam versi demo"); }
 
     const contextValue = {
         ...reducedContext,

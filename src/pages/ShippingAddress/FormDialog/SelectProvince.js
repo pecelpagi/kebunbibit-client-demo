@@ -1,33 +1,26 @@
-import { useEffect, useState } from 'react';
-import * as apiService from '../../../data';
+import { useContext } from 'react';
 import Select from '../../../components/Select';
+import PageContext from '../PageContext';
 
-const handleFetchProvinces = async (onSuccessfully) => {
-    try {
-        const res = await apiService.getProvinces();
-        const formattedData = res.data.map(x => ({ ...x, value: x.id, label: x.name }));
+const SelectProvince = ({ isInvalid, onChange }) => {
+    const { provinces, selectedRegionId, onChangeSelectedRegionId } = useContext(PageContext);
 
-        onSuccessfully(formattedData)
-    } catch (e) {
-        console.error(e);
+    const handleChangeValue = (val) => {
+        onChangeSelectedRegionId('province', val);
+        onChange(val);
     }
-}
-
-export default ({ control, isInvalid, changeEvent }) => {
-    const [options, setOptions] = useState([]);
-
-    useEffect(() => {
-        handleFetchProvinces(setOptions);
-    }, []);
 
     return (
         <Select
-            {...{ control, options, isInvalid, changeEvent }}
+            {...{ isInvalid}}
+            onChange={handleChangeValue}
+            options={provinces}
             label="Provinsi"
-            name="province_id"
             placeholder="Pilih Provinsi"
+            value={selectedRegionId.province}
             required
-            fullWidth
         />
     );
 }
+
+export default SelectProvince;

@@ -1,18 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     Dialog,
-    DialogContent, DialogTitle, CloseButton
+    DialogContent, CloseButton
 } from '../../../components/StyledDialog';
-import { ShippingAddressContext } from '../ShippingAddressContext';
 import Form from './Form';
-
-const CustomDialogTitle = () => {
-    const { detailData } = useContext(ShippingAddressContext);
-
-    return (
-        <DialogTitle>{ detailData ? 'Ubah Alamat' : 'Tambah Alamat' }</DialogTitle>
-    );
-}
+import CustomDialogTitle from './CustomDialogTitle';
 
 class FormDialog extends React.Component {
     state = {
