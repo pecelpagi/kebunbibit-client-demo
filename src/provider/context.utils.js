@@ -9,6 +9,7 @@ const initialState = {
     loggedInProfile: null,
     shippingAddressData: [],
     customerOrdersData: [],
+    categoriesData: [],
 };
 
 const reducer = (state, action) => {
@@ -23,6 +24,8 @@ const reducer = (state, action) => {
             return { ...state, shippingAddressData: action.payload };
         case ACTION_TYPE.SET_CUSTOMER_ORDERS_DATA:
             return { ...state, customerOrdersData: action.payload };
+        case ACTION_TYPE.SET_CATEGORIES_DATA:
+            return { ...state, categoriesData: action.payload };
         default:
         // do nothing
     }
@@ -36,6 +39,7 @@ const handleRefetchAll = (dispatch) => {
     fetcherUtility.handleFetchShippingAddresses(dispatch);
     fetcherUtility.handleFetchMyProfile(dispatch);
     fetcherUtility.handleFetchCustomerOrders(dispatch);
+    fetcherUtility.handleFetchCategories(dispatch);
 }
 
 const createContextDataHandler = (dispatch = () => { }) => ({
@@ -44,6 +48,7 @@ const createContextDataHandler = (dispatch = () => { }) => ({
     onFetchCart: () => { fetcherUtility.handleFetchCart(dispatch); },
     onFetchWishlist: () => { fetcherUtility.handleFetchWishlist(dispatch); },
     onFetchCustomerOrders: () => { fetcherUtility.handleFetchCustomerOrders(dispatch); },
+    onFetchCategories: () => { fetcherUtility.handleFetchCategories(dispatch); },
     onRefetchAll: () => { handleRefetchAll(dispatch) }
 });
 

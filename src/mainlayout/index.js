@@ -1,23 +1,15 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from 'react-router';
-import { styled } from '../stitches.config';
 import Header from './Header';
 import MobileMenu from './MobileMenu';
-import MainLayoutProvider from './MainLayoutContext';
+import MainLayoutProvider from './MainLayoutProvider';
 import Footer from './Footer';
+import { InnerWrapper } from './index.styled-components';
 
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const ProductsPage = lazy(() => import('../pages/Products'));
 const HomePage = lazy(() => import('../pages/Home'));
 const LayoutAccountPage = lazy(() => import('../pages/LayoutAccount'));
-
-const InnerWrapper = styled('div', {
-    marginTop: '56px',
-    position: 'relative',
-    '@md': {
-        marginTop: '100px',
-    },
-});
 
 const MainLayout = () => {
     return (

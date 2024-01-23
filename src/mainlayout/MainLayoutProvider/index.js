@@ -3,12 +3,11 @@ import { useHistory } from "react-router";
 import LoginFormDialog from './LoginFormDialog';
 import CartDialog from './CartDialog';
 import { checkIsLoggedIn } from "../../utils";
+import MainLayoutContext from "../MainLayoutContext";
 
-export const MainLayoutContext = React.createContext();
-
-class Index extends React.Component {
+class ClassComponent extends React.Component {
     isLoggedIn = checkIsLoggedIn();
-    
+
     handleClickCart = () => {
         if (this.isLoggedIn) this.cartDialog.handleShowDialog();
         if (!this.isLoggedIn) this.loginFormDialog.handleShowDialog();
@@ -19,7 +18,7 @@ class Index extends React.Component {
         if (this.isLoggedIn) this.props.onNavigationToProfile();
     }
 
-    createContextDataHandler = () => ({
+    createContextValue = () => ({
         onClickCart: this.handleClickCart,
         onClickAccount: this.handleClickAccount,
     });
@@ -28,7 +27,7 @@ class Index extends React.Component {
         const { children } = this.props;
 
         return (
-            <MainLayoutContext.Provider value={this.createContextDataHandler()}>
+            <MainLayoutContext.Provider value={this.createContextValue()}>
                 {children}
                 <LoginFormDialog
                     ref={(c) => { this.loginFormDialog = c; }}
@@ -41,12 +40,14 @@ class Index extends React.Component {
     }
 }
 
-export default (props) => {
+const MainLayoutProvider = (props) => {
     const history = useHistory();
 
     const handleNavigationToProfile = () => {
         history.push("/account/profile");
     }
 
-    return <Index {...props} onNavigationToProfile={handleNavigationToProfile} />
+    return <ClassComponent {...props} onNavigationToProfile={handleNavigationToProfile} />
 };
+
+export default MainLayoutProvider;

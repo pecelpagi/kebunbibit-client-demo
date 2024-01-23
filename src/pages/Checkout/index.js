@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import MiddleWrapper from '../../components/MiddleWrapper'
-import Logo from '../../mainlayout/Header/logo.jpg'
 import ShippingAddress from './ShippingAddress';
 import OrderedProducts from './OrderedProducts';
 import PaymentMethods from './PaymentMethods';
@@ -25,7 +24,7 @@ const Checkout = () => {
         <div>
             <div className="py-2 border border-x-0 border-t-0 border-b-slate-200 mb-10">
                 <MiddleWrapper>
-                    <a href="/"><img style={{ height: '50px' }} alt="logo" src={Logo} /></a>
+                    <a href="/"><img style={{ height: '50px' }} alt="logo" src="/images/logo.jpg" /></a>
                 </MiddleWrapper>
             </div>
             <MiddleWrapper>

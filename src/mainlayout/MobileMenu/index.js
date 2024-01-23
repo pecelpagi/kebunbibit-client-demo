@@ -1,41 +1,14 @@
 import { useContext } from "react";
 import { CubeIcon, DashboardIcon, HeartIcon, HomeIcon } from "@radix-ui/react-icons"
-import { styled } from '../../stitches.config'; 
-import { MainLayoutContext } from '../MainLayoutContext';
-
-const Wrapper = styled('div', {
-    display: 'flex',
-    flexDirection: 'row',
-    maxWidth: '500px',
-    width: '100%',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    '@md': {
-        display: 'none',
-    },
-    '& button': {
-        flex: '1 1 0%',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '4px',
-        fontSize: '0.75rem',
-        lineHeight: '1rem',
-        color: '$colorSecondary',
-        padding: '8px 0px',
-        'span': {
-            letterSpacing: '0.05em',
-            whiteSpace: 'nowrap',
-        }
-    }
-});
-
+import MainLayoutContext from '../MainLayoutContext';
+import { Wrapper } from "./index.styled-components";
 
 const iconProps = {
     height: 26,
     width: 26,
 }
 
-export default () => {
+const MobileMenu = () => {
     const { onClickCart } = useContext(MainLayoutContext)
 
     return (
@@ -67,3 +40,5 @@ export default () => {
         </Wrapper>
     )
 }
+
+export default MobileMenu;

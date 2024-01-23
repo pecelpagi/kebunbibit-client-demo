@@ -30,3 +30,9 @@ export const handleFetchCustomerOrders = async (dispatch) => {
 
     dispatch({ type: ACTION_TYPE.SET_CUSTOMER_ORDERS_DATA, payload: res.data });
 }
+
+export const handleFetchCategories = async (dispatch) => {
+    const res = await apiService.getCategories();
+
+    dispatch({ type: ACTION_TYPE.SET_CATEGORIES_DATA, payload: res.data });
+}
