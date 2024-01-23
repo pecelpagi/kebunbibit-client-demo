@@ -35,7 +35,6 @@ const OrderTypeFilter = () => {
             <Select
                 {...{ options }}
                 menuPlacement="auto"
-                menuPosition="fixed"
                 value={selectedValue}
                 onChange={handleChangeValue}
             />

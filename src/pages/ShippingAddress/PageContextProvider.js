@@ -25,10 +25,23 @@ class PageContextProvider extends React.Component {
 
     handleOpenDialog = (addressData = null) => {
         const { refCollections } = this.props;
+        
+        let cities = [],
+            subdistricts = [],
+            villages = [];
+
+        if (addressData) {
+            cities = [{ value: addressData.city_id, label: addressData.city_name }];
+            subdistricts = [{ value: addressData.subdistrict_id, label: addressData.subdistrict_name }];
+            villages = [{ value: addressData.village_id, label: addressData.village_name }];
+        }
 
         this.setState({
             addressData,
             selectedRegionId: createSelectedRegionId(addressData),
+            cities,
+            subdistricts,
+            villages,
         }, () => {
             refCollections.formDialog.current.handleShowDialog();
         });

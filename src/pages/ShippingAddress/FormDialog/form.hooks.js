@@ -4,8 +4,10 @@ import PageContext from "../PageContext";
 
 export const useBusinessLogic = () => {
     const { addressData, onSaveData, isInMobileView } = useContext(PageContext);
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
-    console.log('DEBUG-MOBILE-VIEW: ', isInMobileView);
+    const { handleSubmit, formState: { errors }, control } = useForm({
+        defaultValues: addressData,
+    });
+
     const calculateContentHeight = useCallback(() => (window.innerHeight - (isInMobileView ? 65 : 120)), [isInMobileView]);
 
     const [contentHeight, setContentHeight] = useState(calculateContentHeight);
@@ -19,9 +21,7 @@ export const useBusinessLogic = () => {
     }, [calculateContentHeight]);
 
     return {
-        addressData,
         contentHeight,
-        register,
         errors,
         control,
         onSubmit: (e) => handleSubmit(onSaveData)(e),

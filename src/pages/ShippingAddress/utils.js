@@ -13,4 +13,4 @@ export const createSelectedRegionId = (addressData = null) => ({
     city: addressData ? addressData.city_id : '',
     subdistrict: addressData ? addressData.subdistrict_id : '',
     village: addressData ? addressData.village_id : '',
-})
+});

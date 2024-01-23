@@ -12,9 +12,7 @@ import { StyledForm } from "./form.styled-components";
 
 const Form = () => {
     const {
-        addressData,
         contentHeight,
-        register,
         errors,
         control,
         onSubmit,
@@ -23,46 +21,70 @@ const Form = () => {
     return (
         <StyledForm css={{ maxHeight: `${contentHeight}px` }} className="flex flex-col gap-4" onSubmit={onSubmit}>
             <div>
-                <InputText
-                    label="Label Alamat"
-                    defaultValue={addressData ? addressData.address_label : ''}
-                    isInvalid={!!errors.address_label}
-                    {...register("address_label", {
-                        required: true
-                    })}
+                <Controller
+                    control={control}
+                    name="address_label"
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputText
+                            label="Label Alamat"
+                            isInvalid={!!errors.address_label}
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
                 {errors.address_label && <ErrorText>Wajib diisi</ErrorText>}
             </div>
             <div>
-                <InputText
-                    label="Nama Penerima"
-                    defaultValue={addressData ? addressData.receiver_name : ''}
-                    isInvalid={!!errors.receiver_name}
-                    {...register("receiver_name", {
-                        required: true
-                    })}
+                <Controller
+                    control={control}
+                    name="receiver_name"
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputText
+                            label="Nama Penerima"
+                            isInvalid={!!errors.receiver_name}
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
                 {errors.receiver_name && <ErrorText>Wajib diisi</ErrorText>}
             </div>
             <div>
-                <InputText
-                    label="Telepon"
-                    defaultValue={addressData ? addressData.phone : ''}
-                    isInvalid={!!errors.phone}
-                    {...register("phone", {
-                        required: true
-                    })}
+                <Controller
+                    control={control}
+                    name="phone"
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputText
+                            label="Telepon"
+                            isInvalid={!!errors.phone}
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
                 {errors.phone && <ErrorText>Wajib diisi</ErrorText>}
             </div>
             <div>
-                <InputTextArea
-                    label="Alamat"
-                    defaultValue={addressData ? addressData.address : ''}
-                    isInvalid={!!errors.address}
-                    {...register("address", {
-                        required: true
-                    })}
+                <Controller
+                    control={control}
+                    name="address"
+                    rules={{
+                        required: true,
+                    }}
+                    render={({ field: { onChange, value } }) => (
+                        <InputTextArea
+                            label="Alamat"
+                            isInvalid={!!errors.address}
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
                 {errors.address && <ErrorText>Wajib diisi</ErrorText>}
             </div>
@@ -119,11 +141,15 @@ const Form = () => {
                 {errors.village_id && <ErrorText>Wajib diisi</ErrorText>}
             </div>
             <div>
-                <InputText
-                    label="Kode Pos"
+                <Controller
+                    control={control}
                     name="postal_code"
-                    defaultValue={addressData ? addressData.postal_code : ''}
-                    {...register("postal_code")}
+                    render={({ field: { onChange, value } }) => (
+                        <InputText
+                            label="Kode Pos"
+                            {...{ onChange, value }}
+                        />
+                    )}
                 />
             </div>
             <div>
