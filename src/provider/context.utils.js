@@ -33,13 +33,12 @@ const reducer = (state, action) => {
     return state;
 };
 
-const handleRefetchAll = (dispatch) => {
+const handleRefetchUserData = (dispatch) => {
     fetcherUtility.handleFetchCart(dispatch);
     fetcherUtility.handleFetchWishlist(dispatch);
     fetcherUtility.handleFetchShippingAddresses(dispatch);
     fetcherUtility.handleFetchMyProfile(dispatch);
     fetcherUtility.handleFetchCustomerOrders(dispatch);
-    fetcherUtility.handleFetchCategories(dispatch);
 }
 
 const createContextDataHandler = (dispatch = () => { }) => ({
@@ -49,13 +48,15 @@ const createContextDataHandler = (dispatch = () => { }) => ({
     onFetchWishlist: () => { fetcherUtility.handleFetchWishlist(dispatch); },
     onFetchCustomerOrders: () => { fetcherUtility.handleFetchCustomerOrders(dispatch); },
     onFetchCategories: () => { fetcherUtility.handleFetchCategories(dispatch); },
-    onRefetchAll: () => { handleRefetchAll(dispatch) }
+    onRefetchUserData: () => { handleRefetchUserData(dispatch) }
 });
 
 const handleDidMount = (dispatch) => {
     setupLocalCurrency();
 
-    if (checkIsLoggedIn()) { handleRefetchAll(dispatch); }
+    fetcherUtility.handleFetchCategories(dispatch);
+
+    if (checkIsLoggedIn()) { handleRefetchUserData(dispatch); }
 }
 
 export const useContextReducer = () => {
