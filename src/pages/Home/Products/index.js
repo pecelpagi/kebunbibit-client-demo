@@ -1,27 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import ProductItem from '../../../components/ProductItem';
 import StyledButton from '../../../components/StyledButton';
-import { styled } from '../../../stitches.config';
-import { handleFetchProducts } from './utils';
+import PageContext from '../PageContext';
+import { ContentWrapper } from './index.styled-components';
 
-const ContentWrapper = styled('div', {
-    overflowX: 'auto',
-    padding: '5px',
-    '& .inner-wrapper': {
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '15px',
-        width: '100%',
-        minWidth: '1200px',
-    },
-});
-
-export default ({ type }) => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        handleFetchProducts(setProducts);
-    }, []);
+const Products = ({ type }) => {
+    const { products } = useContext(PageContext);
 
     return (
         <div>
@@ -39,3 +23,5 @@ export default ({ type }) => {
         </div>
     )
 }
+
+export default Products;
