@@ -1,0 +1,8 @@
+export const SORTING_TYPE = {
+    MOST_POPULAR: 1,
+    NEWEST: 2,
+    HIGHEST_PRICE: 3,
+    LOWEST_PRICE: 4,
+    ASCENDING: 5,
+    DESCENDING: 6,
+}

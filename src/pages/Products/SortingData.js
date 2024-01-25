@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Select from "../../components/Select";
-import { SORTING_TYPE } from "./utils";
+import { SORTING_TYPE } from "./enums";
 
 const options = [
     {
@@ -35,7 +35,6 @@ const SortingData = () => {
             <Select
                 {...{ options }}
                 menuPlacement="auto"
-                menuPosition="fixed"
                 value={selectedValue}
                 onChange={handleChangeValue}
             />
