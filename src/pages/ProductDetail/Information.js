@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import HtmlParser from "html-react-parser";
-import { styled } from '../../stitches.config';
 import Box from '../../components/Box';
 import RatingStar from '../../components/RatingStar';
 import { currency } from '../../utils';
 import StyledButton from '../../components/StyledButton';
 import { PlusIcon } from '@radix-ui/react-icons';
+import { Wrapper } from './information.styled-components';
+import PageContext from './PageContext';
 
-const Wrapper = styled('div', {
-    boxShadow: '4px 8px 24px rgba(0, 0, 0, 0.1)',
-    width: '100%',
-    border: '1px solid #EBECF2',
-    backgroundColor: '#FFFFFF',
-    padding: '24px 32px',
-    position: 'sticky',
-    top: '100px',
-    borderRadius: '8px',
-})
+const Information = () => {
+    const { product } = useContext(PageContext);
 
-const Information = ({ product }) => {
     return (
         <Wrapper className="text-xs flex flex-col gap-3">
             <Box className="uppercase font-semibold" css={{

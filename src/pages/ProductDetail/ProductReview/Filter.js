@@ -1,17 +1,6 @@
 import React from 'react';
-import { StarFilledIcon } from '@radix-ui/react-icons';
 import Box from '../../../components/Box';
-
-const Icon = () => (
-    <span style={{
-        color: '#ffc600',
-        position: 'relative',
-        bottom: 1,
-        marginRight: '2px'
-    }}>
-        <StarFilledIcon height={14} width={14} />
-    </span>
-)
+import { Icon } from './filter.components';
 
 const Filter = () => {
     return (

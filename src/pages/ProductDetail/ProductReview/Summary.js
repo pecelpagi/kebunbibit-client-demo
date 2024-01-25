@@ -3,15 +3,7 @@ import { StarFilledIcon } from '@radix-ui/react-icons';
 import Box from '../../../components/Box';
 import RatingStar from '../../../components/RatingStar';
 import { getMockReviewSummaryData } from "./mockReviewData";
-import { styled } from '../../../stitches.config';
-
-const StatisticProgressBar = styled('div', {
-    width: '100%',
-    height: '5px',
-    background: '#8bc64e',
-    borderRadius: '4px',
-    position: 'relative',
-});
+import { StatisticProgressBar } from './summary.styled-components';
 
 const Summary = () => {
     return (
