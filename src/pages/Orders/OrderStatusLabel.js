@@ -9,10 +9,12 @@ const Wrapper = styled('div', {
     width: 'fit-content',
 });
 
-export default () => {
+const OrderStatusLabel = () => {
     return (
         <Wrapper>
             Menunggu Pembayaran
         </Wrapper>
     );
 }
+
+export default OrderStatusLabel;

@@ -1,18 +1,9 @@
 import MiddleWrapper from "../../components/MiddleWrapper";
-import { styled } from "../../stitches.config";
 import PageContent from "./PageContent";
 import SideMenu from "./SideMenu";
+import { SideMenuWrapper } from "./index.styled-components";
 
-const SideMenuWrapper = styled('div', {
-    width: 'auto',
-    boxShadow: '#31353b1f 0px 1px 6px 0px',
-    height: 'fit-content',
-    '@lg': {
-        width: '250px',
-    }
-});
-
-export default (props) => {
+const LayoutAccount = (props) => {
     const { match: { params } } = props;
 
     return (
@@ -30,3 +21,5 @@ export default (props) => {
         </div>
     );
 }
+
+export default LayoutAccount;

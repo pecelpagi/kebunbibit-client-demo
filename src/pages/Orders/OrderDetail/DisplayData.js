@@ -1,43 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { styled } from "../../../stitches.config";
-import { currency, matchMediaChecker, MATCH_MEDIA_TYPE } from "../../../utils";
+import React from "react";
+import { currency } from "../../../utils";
 import OrderStatusLabel from "../OrderStatusLabel";
-import { PageContext } from "../PageContext";
 import ProductItem from "./ProductItem";
-
-const SectionBox = styled('div', {
-    padding: '15px 25px',
-    borderBottom: '4px solid #F3F4F5',
-})
-
-const StyledWrapper = styled('div', {
-    overflow: 'auto',
-    width: '100%',
-    position: 'absolute',
-    '@md': {
-        position: 'relative',
-    },
-});
-
-const calculateProductQtyTotal = (detailData) => detailData.products.reduce((total, product) => (total + product.qty), 0);
+import { useBusinessLogic } from "./display-data.hooks";
+import { SectionBox, StyledWrapper } from "./display-data.styled-components";
 
 const DisplayData = () => {
-    const { detailData } = useContext(PageContext);
-    const { shipping_address } = detailData;
-
-    const calculateContentHeight = () => (window.innerHeight - (matchMediaChecker(MATCH_MEDIA_TYPE.MD) ? 120 : 65));
-
-    const [contentHeight, setContentHeight] = useState(calculateContentHeight);
-
-    useEffect(() => {
-        const handler = () => { setContentHeight(calculateContentHeight()); }
-
-        window.addEventListener('resize', handler);
-
-        return () => { window.removeEventListener('resize', handler); };
-    }, []);
-
-    const productQtyTotal = calculateProductQtyTotal(detailData);
+    const {
+        orderDetailData,
+        contentHeight,
+        productQtyTotal
+    } = useBusinessLogic();
+    const { shipping_address } = orderDetailData;
 
     return (
         <StyledWrapper css={{ maxHeight: `${contentHeight}px` }}>
@@ -58,12 +32,12 @@ const DisplayData = () => {
                             <div className="grid" style={{ gridTemplateColumns: '32% 5% 63%' }}>
                                 <div>Nomor Pesanan</div>
                                 <div>:</div>
-                                <div className="text-right font-semibold">{detailData.order_number}</div>
+                                <div className="text-right font-semibold">{orderDetailData.order_number}</div>
                             </div>
                             <div className="grid" style={{ gridTemplateColumns: '32% 5% 63%' }}>
                                 <div>Tanggal Pembelian</div>
                                 <div>:</div>
-                                <div className="text-right">{detailData.created_at}</div>
+                                <div className="text-right">{orderDetailData.created_at}</div>
                             </div>
                         </div>
                     </div>
@@ -113,7 +87,7 @@ const DisplayData = () => {
                         <div>—</div>
                     </div>
 
-                    {detailData.products.map(x => (<ProductItem data={x} />))}
+                    {orderDetailData.products.map(x => (<ProductItem data={x} />))}
                 </div>
             </SectionBox>
             <SectionBox>
@@ -130,7 +104,7 @@ const DisplayData = () => {
                         <div className="border-b border-slate-300 border-dashed" />
                         <div className="grid" style={{ gridTemplateColumns: '37% 63%' }}>
                             <div>Total Harga ({productQtyTotal} barang)</div>
-                            <div className="text-right">{currency(detailData.order_total)}</div>
+                            <div className="text-right">{currency(orderDetailData.order_total)}</div>
                         </div>
                         <div className="grid" style={{ gridTemplateColumns: '37% 63%' }}>
                             <div>Biaya Pengiriman (5 kg)</div>
@@ -139,7 +113,7 @@ const DisplayData = () => {
                         <div className="border-b border-slate-300 border-dashed" />
                         <div className="grid font-semibold mb-4" style={{ gridTemplateColumns: '37% 63%' }}>
                             <div>Total Belanja</div>
-                            <div className="text-right">{currency(detailData.order_total)}</div>
+                            <div className="text-right">{currency(orderDetailData.order_total)}</div>
                         </div>
                     </div>
                 </div>

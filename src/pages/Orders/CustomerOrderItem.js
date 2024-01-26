@@ -1,26 +1,10 @@
 import { useContext } from "react";
 import StyledButton from "../../components/StyledButton";
-import { styled } from "../../stitches.config"
 import { currency } from "../../utils";
 import OrderStatusLabel from "./OrderStatusLabel";
-import { PageContext } from "./PageContext";
-
-const Wrapper = styled('div', {
-    boxShadow: '#31353b1f 0px 1px 6px 0px',
-    borderRadius: '8px',
-    variants: {
-        isDefault: {
-            true: {
-                background: '#ebffef',
-            },
-        },
-    },
-    '& .inner-wrapper': {
-        padding: '16px 24px',
-    }
-});
-
-const Box = styled('div', {});
+import PageContext from "./PageContext";
+import Box from '../../components/Box';
+import { Wrapper } from "./customer-order-item.styled-components";
 
 const CustomerOrderItem = ({ data }) => {
     const { onOpenOrderDetail } = useContext(PageContext);

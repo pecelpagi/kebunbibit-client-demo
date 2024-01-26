@@ -4,11 +4,7 @@ import MyProfile from "../MyProfile";
 import ShippingAddress from "../ShippingAddress";
 import Orders from "../Orders";
 import Wishlist from "../Wishlist";
-import { styled } from "../../stitches.config";
-
-const StyledWrapper = styled('div', {
-  boxShadow: '#31353b1f 0px 1px 6px 0px'
-});
+import Box from '../../components/Box';
 
 const PageContent = ({ pageType }) => {
   let content = (<div />);
@@ -31,9 +27,14 @@ const PageContent = ({ pageType }) => {
   }
 
   return (
-    <StyledWrapper className="rounded-md">
-        {content}
-    </StyledWrapper>
+    <Box
+      css={{
+        boxShadow: '#31353b1f 0px 1px 6px 0px'
+      }}
+      className="rounded-md"
+    >
+      {content}
+    </Box>
   );
 };
 

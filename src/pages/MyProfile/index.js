@@ -1,17 +1,8 @@
 import { useContext } from "react";
-import { styled } from '../stitches.config';
-import GlobalContext from '../provider/GlobalContext';
+import GlobalContext from '../../provider/GlobalContext';
+import { EditButton } from "./index.styled-components";
 
-const EditButton = styled('button', {
-    color: '#F04630',
-    fontSize: '0.875rem',
-    lineHeight: '1.25rem',
-    '&:hover': {
-        textDecoration: 'underline',
-    }
-});
-
-export default () => {
+const MyProfile = () => {
     const { loggedInProfile } = useContext(GlobalContext);
 
     if (!loggedInProfile) return null;
@@ -55,3 +46,5 @@ export default () => {
         </div>
     )
 }
+
+export default MyProfile;

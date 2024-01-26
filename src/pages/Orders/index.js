@@ -1,15 +1,17 @@
-import { useContext } from 'react';
 import InputFilterKeyword from './InputFilterKeyword';
 import OrderTypeFilter from './OrderTypeFilter';
-import CustomerOrderItem from './CustomerOrderItem';
-import ContextProvider from './PageContext';
-import GlobalContext from '../../provider/GlobalContext';
+import PageContextProvider from './PageContextProvider';
+import OrderDetail from './OrderDetail';
+import { useRefCollections } from './utils';
+import CustomerOrders from './CustomerOrders';
 
 const Orders = () => {
-    const { customerOrdersData } = useContext(GlobalContext);
+    const refCollections = useRefCollections();
 
     return (
-        <ContextProvider>
+        <PageContextProvider
+            {...{ refCollections }}
+        >
             <div className="flex flex-col">
                 <div className="text-base font-semibold border-b p-4">
                     <div>Pesanan Saya</div>
@@ -23,12 +25,13 @@ const Orders = () => {
                             <OrderTypeFilter />
                         </div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                        {customerOrdersData.map(x => (<CustomerOrderItem key={x.id} data={x} />))}
-                    </div>
+                    <CustomerOrders />
                 </div>
             </div>
-        </ContextProvider>
+            <OrderDetail
+                ref={refCollections.orderDetailDialog}
+            />
+        </PageContextProvider>
     );
 }
 

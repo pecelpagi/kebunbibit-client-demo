@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Select from "../../components/Select";
-import { ORDER_STATUS_TYPE } from "./utils";
+import { ORDER_STATUS_TYPE } from "./enums";
 
 const options = [
     {
