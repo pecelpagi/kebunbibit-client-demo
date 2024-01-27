@@ -11,6 +11,7 @@ import QtyInput from './QtyInput';
 import GlobalContext from '../../provider/GlobalContext';
 import { styled } from '../../stitches.config';
 import RatingStar from '../RatingStar';
+import Box from '../Box';
 
 const QtyInputWrapper = styled('div', {
     width: '150px',
@@ -75,7 +76,14 @@ const Index = (props) => {
                     src={createFileUrlPreview(data.thumbnail_image)}
                 />
             </Link>
-            <div className="flex flex-col p-2">
+            <Box
+                css={{
+                    zIndex: 0,
+                    position: 'relative',
+                    background: '#FFF',
+                }}
+                className="flex flex-col p-2"
+            >
                 <Link to={`/product/${data.id}`} className="product-name text-sm font">{data.name}</Link>
                 <div className="text-xs font-semibold" style={{ color: '#9295A6', }}>500 gr</div>
                 <div className="product-price text-sm mb-2">{currency(data.price)}</div>
@@ -92,7 +100,7 @@ const Index = (props) => {
                     </StyledButton>
                 )}
                 {isAddedToCart && (<QtyInput value={cartDetail.qty} productId={data.id} />)}
-            </div>
+            </Box>
         </Wrapper>
     )
 }

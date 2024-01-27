@@ -53,6 +53,9 @@ const getKeyAndValue = (rawValue) => {
 
 export const getQueryParams = () => {
   let rawValue = window.location.search;
+
+  if (!rawValue) return null;
+
   rawValue = rawValue.replaceAll("?", "");
   const splits = rawValue.split("&");
 
