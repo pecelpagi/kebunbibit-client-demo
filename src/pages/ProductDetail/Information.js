@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import HtmlParser from "html-react-parser";
 import Box from '../../components/Box';
 import RatingStar from '../../components/RatingStar';
@@ -7,9 +7,15 @@ import StyledButton from '../../components/StyledButton';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Wrapper } from './information.styled-components';
 import PageContext from './PageContext';
+import QtyInput from '../../components/ProductItem/QtyInput';
+import GlobalContext from '../../provider/GlobalContext';
 
 const Information = () => {
+    const { cartData } = useContext(GlobalContext);
     const { product } = useContext(PageContext);
+
+    const addedCart = useMemo(() => cartData.find(x => +x.id === +product.id), [cartData, product]);
+    const isAlreadyAddedToCart = !!addedCart;
 
     return (
         <Wrapper className="text-xs flex flex-col gap-3">
@@ -32,7 +38,7 @@ const Information = () => {
                 }}
                 className='text-2xl font-semibold'
             >{currency(product.price)}</Box>
-            <StyledButton
+            {!isAlreadyAddedToCart && <StyledButton
                 css={{
                     maxWidth: '250px'
                 }}
@@ -40,7 +46,12 @@ const Information = () => {
                 type="button"
                 variant="primary">
                 <span className="flex items-center justify-center gap-1"><PlusIcon />Tambah ke Keranjang</span>
-            </StyledButton>
+            </StyledButton>}
+            {isAlreadyAddedToCart && <Box
+                css={{ maxWidth: '200px' }}
+            >
+                <QtyInput value={addedCart.qty} productId={product.id} />
+            </Box>}
             <Box className='text-base mt-3 leading-7'>
                 {HtmlParser(product.description)}
             </Box>

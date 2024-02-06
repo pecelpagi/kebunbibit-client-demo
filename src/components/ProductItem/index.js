@@ -45,7 +45,7 @@ const Index = (props) => {
                     />
                 </Link>
                 <div style={{ flex: '4 1 0%' }} className="flex flex-col">
-                    <Link to={`/product/${data.id}`} className="product-name text-sm font">{data.name}</Link>
+                    <a href={`/product/${data.id}`} className="product-name text-sm font">{data.name}</a>
                     <div className="flex flex-row text-sm gap-1 mb-3">
                         <div className="product-price">{currency(data.price)}</div>
                         <div className="font-semibold" style={{ color: '#9295A6' }}>/ 500 gr</div>
