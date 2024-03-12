@@ -9,12 +9,23 @@ class PageContextProvider extends React.Component {
 
     state = {
         product: null,
+        otherProducts: []
     }
 
     setState = this.setState.bind(this);
 
     componentDidMount = () => {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0;
+
         this.handleFetchProduct();
+        this.handleFetchOtherProducts();
+    }
+
+    handleFetchOtherProducts = () => {
+        const { toastify } = this.context;
+
+        apiServiceUtility.handleFetchProducts({ toastify, setState: this.setState });
     }
 
     handleFetchProduct = () => {

@@ -20,28 +20,5 @@ export const Wrapper = styled('div', {
     },
     '& img': {
         borderRadius: '8px 8px 0px 0px',
-    },
-    variants: {
-        type: {
-            cart: {
-                minWidth: '425px',
-                padding: '15px 25px',
-                flexDirection: 'row',
-                flex: 'unset',
-                display: 'flex',
-                borderRadius: '0px',
-                borderBottom: '5px solid #f3f4f5',
-                gap: '15px',
-                '&:hover': {
-                    boxShadow: 'none'
-                },
-                '&:last-child': {
-                    borderBottom: '0px'
-                },
-                '& img': {
-                    borderRadius: '8px',
-                },            
-            }
-        }
     }
 });

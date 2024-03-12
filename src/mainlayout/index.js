@@ -8,6 +8,7 @@ import { InnerWrapper } from './index.styled-components';
 
 const ProductDetail = lazy(() => import('../pages/ProductDetail'));
 const ProductsPage = lazy(() => import('../pages/Products'));
+const SearchProductsPage = lazy(() => import('../pages/SearchProducts'));
 const HomePage = lazy(() => import('../pages/Home'));
 const LayoutAccountPage = lazy(() => import('../pages/LayoutAccount'));
 
@@ -25,6 +26,11 @@ const MainLayout = () => {
                         exact
                         path="/product/:id"
                         component={ProductDetail}
+                    />
+                    <Route
+                        exact
+                        path="/search"
+                        component={SearchProductsPage}
                     />
                     <Route
                         exact

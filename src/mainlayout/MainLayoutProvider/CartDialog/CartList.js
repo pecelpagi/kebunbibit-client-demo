@@ -1,9 +1,8 @@
-import ProductItem from "../../../components/ProductItem";
-import { PRODUCT_ITEM_TYPE } from "../../../components/ProductItem/enums";
 import StyledButton from "../../../components/StyledButton";
 import { currency } from "../../../utils";
 import { CartDataWrapper, FooterWrapper } from "./cart-list.styled-components";
 import { useBusinessLogic } from "./cart-list.hooks";
+import ProductItem from "./ProductItem";
 
 const CartList = () => {
     const { contentHeight, cartData, cartTotal } = useBusinessLogic();
@@ -11,7 +10,7 @@ const CartList = () => {
     return (
         <div>
             <CartDataWrapper css={{ maxHeight: `${contentHeight}px` }}>
-                {cartData.map(x => (<ProductItem key={x.id} data={x} type={PRODUCT_ITEM_TYPE.CART} />))}
+                {cartData.map(x => (<ProductItem key={x.id} data={x} />))}
             </CartDataWrapper>
             <FooterWrapper className="flex">
                 <div className="flex-1">

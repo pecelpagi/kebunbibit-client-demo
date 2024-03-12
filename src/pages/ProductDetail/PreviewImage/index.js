@@ -16,8 +16,13 @@ const PreviewImage = () => {
                     maxWidth: '450px',
                     height: `${width}px`,
                     paddingBottom: 'unset',
+                    '.kebunbibit-product-img-large': {
+                        height: `${width}px`,
+                        borderRadius: '8px',
+                        objectFit: 'cover'
+                    },
                     '.kebunbibit-lazy-image-placeholder, .kebunbibit-product-img': {
-                        borderRadius: '8px'
+                        borderRadius: '8px',
                     }
                 }
             }}
@@ -25,7 +30,7 @@ const PreviewImage = () => {
             <LazyImage
                 alt="product image"
                 wrapperClassName="kebunbibit-product-img-wrapper"
-                className="kebunbibit-product-img"
+                className="kebunbibit-product-img-large"
                 src={createFileUrlPreview(activeImage)}
                 lazyLoadProps={{ overflow: true }}
             />

@@ -4,6 +4,7 @@ import Information from './Information';
 import PreviewImage from './PreviewImage';
 import ProductReview from './ProductReview';
 import PageContextProvider from './PageContextProvider';
+import OtherProducts from './OtherProducts';
 
 const ProductDetail = (props) => {
     return (
@@ -11,7 +12,7 @@ const ProductDetail = (props) => {
             <div>
                 <div className="mb-14 px-0 md:px-5">
                     <MiddleWrapper>
-                        <div className="grid" style={{ gridTemplateColumns: '50% 50%' }}>
+                        <div className="grid" style={{ gridTemplateColumns: '50% 50%', marginBottom: 50 }}>
                             <div>
                                 <PreviewImage />
                                 <ProductReview />
@@ -20,6 +21,7 @@ const ProductDetail = (props) => {
                                 <Information />
                             </div>
                         </div>
+                        <OtherProducts />
                     </MiddleWrapper>
                 </div>
             </div>
