@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { PlusIcon, MinusIcon } from '@radix-ui/react-icons';
 import StyledInput from "../../components/StyledInput";
 import StyledButton from "../../components/StyledButton";
@@ -8,77 +8,104 @@ import * as apiService from "../../data";
 
 let timeoutRefetch = null;
 
-const QtyInput = ({ value: propValue, productId }) => {
-    const { onFetchCart } = useContext(GlobalContext);
-    const [value, setValue] = useState(propValue);
+class ClassComponent extends React.Component {
+    constructor(props) {
+        super(props);
 
-    const handleChangeValue = (val) => { setValue(replaceAllExceptNumerics(val)); }
+        this.state = {
+            value: props.value
+        }
+    }
 
-    const handleDecreaseQty = () => {
+    handleChangeValue = (val) => {
+        this.setState({ value: +replaceAllExceptNumerics(val) }, () => {
+            this.handleUpdateCart();
+        });
+    }
+
+    handleDecreaseQty = () => {
+        const { value } = this.state;
+
         if (value < 2) return;
 
         const newQty = parseInt(value) - 1;
 
-        handleChangeValue(newQty);
+        this.handleChangeValue(newQty);
     }
 
-    const handleIncreaseQty = () => {
+    handleIncreaseQty = () => {
+        const { value } = this.state;
+
         const newQty = parseInt(value) + 1;
 
-        handleChangeValue(newQty);
+        this.handleChangeValue(newQty);
     }
 
-    const handleUpdateCart = async () => {
+    handleUpdateCart = async () => {
+        if (timeoutRefetch) clearTimeout(timeoutRefetch);
+        timeoutRefetch = setTimeout(() => { this.processUpdatingCart(); }, 750);
+    }
+
+    processUpdatingCart = async () => {
+        const { value } = this.state;
+        const { onFetchCart, onSetIsFetchingCart, productId } = this.props;
+
+        onSetIsFetchingCart(true);
+
         let qty = 0;
 
         if (String(value).length > 0) qty = value;
 
         await apiService.updateCart(productId, qty);
-        
-        onFetchCart();
+        await onFetchCart();
+
+        onSetIsFetchingCart(false);
     }
 
-    useEffect(() => {
-        handleChangeValue(propValue);
-    }, [propValue]);
+    render() {
+        const { value } = this.state;
 
-    useEffect(() => {
-        if (timeoutRefetch) clearTimeout(timeoutRefetch);
-        timeoutRefetch = setTimeout(() => { handleUpdateCart() }, 500);
-    }, [value]);
+        return (
+            <div className="flex gap-2" style={{ height: '36px' }}>
+                <StyledButton
+                    className="text-sm font-semibold"
+                    type="button"
+                    variant="primary"
+                    outlined
+                    onClick={this.handleDecreaseQty}
+                >
+                    <span className="flex items-center justify-center gap-1"><MinusIcon /></span>
+                </StyledButton>
+                <StyledInput
+                    css={{
+                        background: '#f1f1f1',
+                        border: '1px solid transparent !important',
+                        borderRadius: '4px',
+                        color: '#000',
+                        textAlign: 'center',
+                        paddingLeft: '0px',
+                        paddingRight: '0px',
+                    }}
+                    onChange={(e) => { this.handleChangeValue(e.target.value) }} value={value} />
+                <StyledButton
+                    className="text-sm font-semibold"
+                    type="button"
+                    variant="primary"
+                    onClick={this.handleIncreaseQty}
+                >
+                    <span className="flex items-center justify-center gap-1"><PlusIcon /></span>
+                </StyledButton>
+            </div>
+        );
+    }
+}
+
+const QtyInput = ({ value, productId }) => {
+    const globalContext = useContext(GlobalContext);
 
     return (
-        <div className="flex gap-2" style={{ height: '36px' }}>
-            <StyledButton
-                className="text-sm font-semibold"
-                type="button"
-                variant="primary"
-                outlined
-                onClick={handleDecreaseQty}
-            >
-                <span className="flex items-center justify-center gap-1"><MinusIcon /></span>
-            </StyledButton>
-            <StyledInput
-                css={{
-                    background: '#f1f1f1',
-                    border: '1px solid transparent !important',
-                    borderRadius: '4px',
-                    color: '#000',
-                    textAlign: 'center',
-                    paddingLeft: '0px',
-                    paddingRight: '0px',
-                }}
-                onChange={(e) => { handleChangeValue(e.target.value) }} value={value} />
-            <StyledButton
-                className="text-sm font-semibold"
-                type="button"
-                variant="primary"
-                onClick={handleIncreaseQty}
-            >
-                <span className="flex items-center justify-center gap-1"><PlusIcon /></span>
-            </StyledButton>
-        </div>
-    );
+        <ClassComponent {...globalContext} {...{ value, productId }} />
+    )
 }
 
 export default QtyInput;

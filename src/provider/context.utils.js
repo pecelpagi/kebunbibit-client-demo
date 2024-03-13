@@ -10,10 +10,13 @@ const initialState = {
     shippingAddressData: [],
     customerOrdersData: [],
     categoriesData: [],
+    isFetchingCart: false,
 };
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case ACTION_TYPE.SET_IS_FETCHING_CART:
+            return { ...state, isFetchingCart: action.payload };
         case ACTION_TYPE.SET_CART_DATA:
             return { ...state, cartData: action.payload };
         case ACTION_TYPE.SET_WISHLIST_DATA:
@@ -44,11 +47,12 @@ const handleRefetchUserData = (dispatch) => {
 const createContextDataHandler = (dispatch = () => { }) => ({
     onFetchMyProfile: () => { fetcherUtility.handleFetchMyProfile(dispatch); },
     onFetchShippingAddresses: () => { fetcherUtility.handleFetchShippingAddresses(dispatch); },
-    onFetchCart: () => { fetcherUtility.handleFetchCart(dispatch); },
+    onFetchCart: async () => { await fetcherUtility.handleFetchCart(dispatch); },
     onFetchWishlist: () => { fetcherUtility.handleFetchWishlist(dispatch); },
     onFetchCustomerOrders: () => { fetcherUtility.handleFetchCustomerOrders(dispatch); },
     onFetchCategories: () => { fetcherUtility.handleFetchCategories(dispatch); },
-    onRefetchUserData: () => { handleRefetchUserData(dispatch) }
+    onRefetchUserData: () => { handleRefetchUserData(dispatch) },
+    onSetIsFetchingCart: (isFetching) => { dispatch({ type: ACTION_TYPE.SET_IS_FETCHING_CART, payload: isFetching }); }
 });
 
 const handleDidMount = (dispatch) => {

@@ -5,7 +5,7 @@ import { MATCH_MEDIA_TYPE, matchMediaChecker } from "../../../utils";
 const calculateContentHeight = () => (window.innerHeight - (matchMediaChecker(MATCH_MEDIA_TYPE.MD) ? 180 : 130));
 
 export const useBusinessLogic = () => {
-    const { cartData } = useContext(GlobalContext);
+    const { cartData, isFetchingCart } = useContext(GlobalContext);
     const [contentHeight, setContentHeight] = useState(calculateContentHeight());
 
     const cartTotal = cartData.reduce((total, data) => (total + (data.price * data.qty)), 0);
@@ -22,5 +22,6 @@ export const useBusinessLogic = () => {
         contentHeight,
         cartData,
         cartTotal,
+        isFetchingCart,
     }
 }

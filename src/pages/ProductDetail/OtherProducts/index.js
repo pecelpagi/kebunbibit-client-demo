@@ -13,7 +13,7 @@ const OtherProducts = () => {
             </div>
             <ContentWrapper>
                 <div className="inner-wrapper">
-                    {otherProducts.map((x) => (<ProductItem lazyLoadProps={{ offset: 150 }} key={x.id} data={x} />))}
+                    {otherProducts.map((x) => (<ProductItem lazyLoadProps={{ offset: 165 }} key={x.id} data={x} />))}
                 </div>
             </ContentWrapper>
         </div>
